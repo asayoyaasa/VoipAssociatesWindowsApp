@@ -29,8 +29,8 @@ SetCompressorDictSize 32
 !define MUI_WELCOMEPAGE_TEXT "This wizard will install ${APP_NAME} ${APP_VERSION} on your computer.$\r$\n$\r$\nClick Next to continue."
 !define MUI_FINISHPAGE_RUN "$INSTDIR\${APP_EXE}"
 !define MUI_FINISHPAGE_RUN_TEXT "Launch ${APP_NAME}"
-!define MUI_FINISHPAGE_LINK "Visit voipassociates.com"
-!define MUI_FINISHPAGE_LINK_LOCATION "https://www.voipassociates.com"
+!define MUI_FINISHPAGE_LINK "Visit voip.associates"
+!define MUI_FINISHPAGE_LINK_LOCATION "https://voip.associates/"
 
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_DIRECTORY
@@ -56,7 +56,7 @@ Section "Main Application" SEC_MAIN
   ExecWait '"$TEMP\vc_redist.x64.exe" /install /quiet /norestart'
   Delete "$TEMP\vc_redist.x64.exe"
 
-  ; --- bin root files (exe + dlls) ---
+  ; --- exe + Qt DLLs + SDK DLLs (all .dll in bin root) ---
   SetOutPath "$INSTDIR"
   File /x "linphone.exe" /x "linphone_app.pdb" /x "vc_redist.x64.exe" \
        "${SRC_BIN}\*.exe"
@@ -93,6 +93,12 @@ Section "Main Application" SEC_MAIN
   SetOutPath "$INSTDIR\translations"
   File /r "${SRC_BIN}\translations\*"
 
+  ; --- SDK mediastreamer2 audio plugins ---
+  ; Placed at lib\mediastreamer\plugins\ so the app's Paths.cpp finds them
+  ; (MSPLUGINS_DIR = "lib/mediastreamer/plugins", resolved from exe dir)
+  SetOutPath "$INSTDIR\lib\mediastreamer\plugins"
+  File /r "${SRC_BIN}\lib\mediastreamer\plugins\*"
+
   ; --- Factory config ---
   SetOutPath "$INSTDIR\share\VoIPAssociates"
   File "${SRC_SHARE}\linphonerc-factory"
@@ -113,7 +119,7 @@ Section "Main Application" SEC_MAIN
   WriteRegStr   HKLM "${UNINSTALL_KEY}" "DisplayName"     "${APP_NAME}"
   WriteRegStr   HKLM "${UNINSTALL_KEY}" "DisplayVersion"  "${APP_VERSION}"
   WriteRegStr   HKLM "${UNINSTALL_KEY}" "Publisher"       "VoIP Associates"
-  WriteRegStr   HKLM "${UNINSTALL_KEY}" "URLInfoAbout"    "https://www.voipassociates.com"
+  WriteRegStr   HKLM "${UNINSTALL_KEY}" "URLInfoAbout"    "https://voip.associates/"
   WriteRegStr   HKLM "${UNINSTALL_KEY}" "DisplayIcon"     "$INSTDIR\${APP_EXE}"
   WriteRegStr   HKLM "${UNINSTALL_KEY}" "UninstallString" "$INSTDIR\Uninstall.exe"
   WriteRegStr   HKLM "${UNINSTALL_KEY}" "InstallLocation" "$INSTDIR"
@@ -139,6 +145,7 @@ Section "Uninstall"
   RMDir /r "$INSTDIR\styles"
   RMDir /r "$INSTDIR\tls"
   RMDir /r "$INSTDIR\translations"
+  RMDir /r "$INSTDIR\lib"
   RMDir /r "$INSTDIR\share"
   Delete "$INSTDIR\*.dll"
   Delete "$INSTDIR\*.exe"
