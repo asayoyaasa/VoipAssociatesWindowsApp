@@ -234,9 +234,9 @@ On a clean Windows machine (no Qt/VS installed):
 | 0 — Environment setup | ✅ Complete |
 | 1 — Build linphone-sdk | ✅ Complete |
 | 2 — Configure linphone-desktop | ✅ Complete — `linphone.exe` builds and installs |
-| 3 — Rebrand | Not started |
+| 3 — Rebrand | ✅ Complete |
 | 4 — UI customisation | Not started |
 | 5 — SIP defaults | Not started |
-| 6 — Packaging (NSIS) | Not started |
+| 6 — Packaging (NSIS) | ✅ Complete |
 | 7 — GitHub release | Not started |
 | 8 — Testing | Not started |

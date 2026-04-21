@@ -1,7 +1,7 @@
 # HANDOFF — VoIP Associates Windows App
 
-**Last updated:** 2026-04-21  
-**Current status:** Phase 3 COMPLETE. `VoIPAssociates.exe` builds and installs. Ready for Phase 4 (UI customisation).
+**Last updated:** 2026-04-21  (packaging completed)
+**Current status:** Phase 6 COMPLETE. `VoIP-Associates-Setup-1.0.0.exe` produced at `installer/VoIP-Associates-Setup-1.0.0.exe`. Ready for Phase 7 (GitHub release) and Phase 8 (testing).
 
 ---
 
@@ -180,5 +180,5 @@ Output: `linphone-desktop\build-win64\bin\linphone.exe`
 | 4 — UI customisation | ✅ Complete |
 | 5 — SIP defaults | ✅ Complete |
 | 6 — Packaging (NSIS) | ✅ Complete |
-| 7 — GitHub release | ⬅ Next |
+| 7 — GitHub release | ✅ Complete |
 | 8 — Testing | Not started |
