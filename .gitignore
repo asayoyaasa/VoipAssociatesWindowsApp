@@ -1,0 +1,11 @@
+# SDK and desktop source trees are their own git repos — tracked separately
+linphone-sdk/
+linphone-desktop/
+
+# Build outputs
+installer/VoIP-Associates-Setup-*.exe
+build_log*.txt
+
+# Python cache
+__pycache__/
+*.pyc
