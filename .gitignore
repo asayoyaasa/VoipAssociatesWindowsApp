@@ -2,9 +2,19 @@
 linphone-sdk/
 linphone-desktop/
 
+# Session / planning docs — local only, not for the repo
+HANDOFF.md
+PLAN.md
+SYSTEM_MAP.md
+
 # Build outputs
 installer/VoIP-Associates-Setup-*.exe
 build_log*.txt
+rebuild_fixes_log.txt
+
+# IDE / tool state
+.vs/
+CppProperties.json
 
 # Python cache
 __pycache__/

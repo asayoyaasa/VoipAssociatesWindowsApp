@@ -10,6 +10,7 @@ Unicode True
 !define UNINSTALL_KEY   "Software\Microsoft\Windows\CurrentVersion\Uninstall\VoIPAssociates"
 !define SRC_BIN         "C:\voipapp\linphone-desktop\build-win64\OUTPUT\bin"
 !define SRC_SHARE       "C:\voipapp\linphone-desktop\build-win64\OUTPUT\share\VoIPAssociates"
+!define SRC_ROOTCA      "C:\voipapp\linphone-sdk\sdk-install\share\linphone\rootca.pem"
 !define ICON_FILE       "C:\voipapp\linphone-desktop\Linphone\data\icon.ico"
 
 Name "${APP_NAME} ${APP_VERSION}"
@@ -103,6 +104,10 @@ Section "Main Application" SEC_MAIN
   SetOutPath "$INSTDIR\share\VoIPAssociates"
   File "${SRC_SHARE}\linphonerc-factory"
 
+  ; --- Root CA (required for TLS SIP registration and HTTPS) ---
+  SetOutPath "$INSTDIR\share\linphone"
+  File "${SRC_ROOTCA}"
+
   ; --- Shortcuts ---
   CreateDirectory "$SMPROGRAMS\${APP_NAME}"
   CreateShortcut "$SMPROGRAMS\${APP_NAME}\${APP_NAME}.lnk" \
@@ -146,7 +151,9 @@ Section "Uninstall"
   RMDir /r "$INSTDIR\tls"
   RMDir /r "$INSTDIR\translations"
   RMDir /r "$INSTDIR\lib"
-  RMDir /r "$INSTDIR\share"
+  RMDir /r "$INSTDIR\share\VoIPAssociates"
+  RMDir /r "$INSTDIR\share\linphone"
+  RMDir  "$INSTDIR\share"
   Delete "$INSTDIR\*.dll"
   Delete "$INSTDIR\*.exe"
   Delete "$INSTDIR\*.pdb"
